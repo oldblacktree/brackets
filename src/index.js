@@ -16,7 +16,8 @@
   for (let k = 0; k < brackets.length; k++){
     bracketPosition = [];
     findBracketPosition(brackets[k]);
-
+    
+    // when open and close brackets are similar
     if (bracketPosition.length === 2){
       if (bracketsStack.length === 0){
         bracketsStack.push(bracketPosition[0])
@@ -26,7 +27,8 @@
         bracketsStack.push(bracketPosition[0])
       }
     } 
-    
+
+    // when open and close brackets are different
       else if (bracketPosition[0][1] === 0){
       bracketsStack.push(bracketPosition[0]);
     } else if(bracketsStack.length === 0){ 
