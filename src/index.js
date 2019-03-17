@@ -1,6 +1,6 @@
  module.exports = function check(str, bracketsConfig) {
-  let arr = str.split('');
-  let newArr = [];
+  let brackets = str.split('');
+  let bracketsStack = [];
   let bracketPosition = [];
   
   function findBracketPosition(bracket) {
@@ -13,30 +13,31 @@
     }
   }
 
-  for (let k = 0; k < arr.length; k++){
+  for (let k = 0; k < brackets.length; k++){
     bracketPosition = [];
-    findBracketPosition(arr[k]);
+    findBracketPosition(brackets[k]);
 
     if (bracketPosition.length === 2){
-      if (newArr.length === 0){
-        newArr.push(bracketPosition[0])
-      } else if (bracketPosition[0][0] === newArr[newArr.length - 1][0]) {
-        newArr.pop();
+      if (bracketsStack.length === 0){
+        bracketsStack.push(bracketPosition[0])
+      } else if (bracketPosition[0][0] === bracketsStack[bracketsStack.length - 1][0]) {
+        bracketsStack.pop();
       } else {
-        newArr.push(bracketPosition[0])
+        bracketsStack.push(bracketPosition[0])
       }
     } 
     
       else if (bracketPosition[0][1] === 0){
-      newArr.push(bracketPosition[0]);
-    } else if(newArr.length === 0){ 
+      bracketsStack.push(bracketPosition[0]);
+    } else if(bracketsStack.length === 0){ 
       return false;
-    } else if (bracketPosition[0][0] === newArr[newArr.length - 1][0]) {
-        newArr.pop();
+    } else if (bracketPosition[0][0] === bracketsStack[bracketsStack.length - 1][0]) {
+        bracketsStack.pop();
       } else return false;
     }
   
-  if (newArr.length === 0) {
-    return true;
+    if (bracketsStack.length === 0) {
+      return true;
+      
   } else return false;
 }
